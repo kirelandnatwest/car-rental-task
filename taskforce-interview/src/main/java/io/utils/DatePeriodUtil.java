@@ -2,7 +2,7 @@ package io.utils;
 
 import java.time.LocalDate;
 
-public class PeriodUtil {
+public class DatePeriodUtil {
 
     /**
      * Check two date periods to see if they are overlapping.
