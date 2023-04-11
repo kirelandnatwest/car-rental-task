@@ -12,6 +12,9 @@ class DatePeriodUtilTest {
     private static final DatePeriod START_OVERLAP = new DatePeriod(LocalDate.of(2023, 01, 12), LocalDate.of(2023, 01, 16));
     private static final DatePeriod WHOLLY_IN_PERIOD = new DatePeriod(LocalDate.of(2023, 01, 15), LocalDate.of(2023, 02, 04));
     private static final DatePeriod END_OVERLAP = new DatePeriod(LocalDate.of(2023, 02, 04), LocalDate.of(2023, 02, 06));
+    
+    private static final DatePeriod WHOLLY_COVERS_PERIOD = new DatePeriod(BASE_PERIOD.getStart().minus(Period.ofDays(1)), 
+    		BASE_PERIOD.getEnd().plus(Period.ofDays(1)));
 
     private static final DatePeriod SINGLE_DATE_PERIOD_START = new DatePeriod(LocalDate.of(2023, 01, 14), LocalDate.of(2023, 01, 14));
     private static final DatePeriod SINGLE_DATE_PERIOD_END = new DatePeriod(LocalDate.of(2023, 02, 05), LocalDate.of(2023, 02, 05));
@@ -65,6 +68,11 @@ class DatePeriodUtilTest {
     @Test
     void testForNonOverlappingPeriodAfter() {
         assertThat(DatePeriodUtil.areOverlapping(BASE_PERIOD, PERIOD_AFTER)).isFalse();
+    }
+
+    @Test
+    void testForOverlappingPeriodsWithWholePeriodOverlap() {
+        assertThat(DatePeriodUtil.areOverlapping(BASE_PERIOD, WHOLLY_COVERS_PERIOD)).isTrue();
     }
 
 }

@@ -11,8 +11,8 @@ public class DatePeriodUtil {
      * @return true if
      */
     public static boolean areOverlapping(DatePeriod period1, DatePeriod period2) {
-        return ((period1.getStart().isBefore(period2.getStart()) || period1.getStart().isEqual(period2.getStart())) && (isInPeriod(period1.getEnd(), period2) || period1.getEnd().isAfter(period2.getEnd()))) ||
-                ((isInPeriod(period1.getStart(), period2) || period1.getStart().isBefore(period2.getStart())) && (period1.getEnd().isAfter(period2.getEnd()) || period1.getEnd().isEqual(period2.getEnd())));
+    	// If either start date lies within the other period the periods overlap
+    	return ( isInPeriod(period1.getStart(), period2) || isInPeriod(period2.getStart(), period1) );
     }
 
     /**
