@@ -3,6 +3,7 @@ package io.utils;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -13,7 +14,7 @@ class DatePeriodUtilTest {
     private static final DatePeriod WHOLLY_IN_PERIOD = new DatePeriod(LocalDate.of(2023, 01, 15), LocalDate.of(2023, 02, 04));
     private static final DatePeriod END_OVERLAP = new DatePeriod(LocalDate.of(2023, 02, 04), LocalDate.of(2023, 02, 06));
     
-    private static final DatePeriod WHOLLY_COVERS_PERIOD = new DatePeriod(BASE_PERIOD.getStart().minus(Period.ofDays(1)), 
+    private static final DatePeriod WHOLLY_COVERS_PERIOD = new DatePeriod(BASE_PERIOD.getStart().minus(Period.ofDays(1)),
     		BASE_PERIOD.getEnd().plus(Period.ofDays(1)));
 
     private static final DatePeriod SINGLE_DATE_PERIOD_START = new DatePeriod(LocalDate.of(2023, 01, 14), LocalDate.of(2023, 01, 14));
@@ -39,6 +40,12 @@ class DatePeriodUtilTest {
     void testForOverlappingPeriodsWithWholePeriodOverlap() {
         assertThat(DatePeriodUtil.areOverlapping(BASE_PERIOD, WHOLLY_IN_PERIOD)).isTrue();
     }
+
+    @Test
+    void testForOverlappingPeriodsWithWholeCover() {
+        assertThat(DatePeriodUtil.areOverlapping(BASE_PERIOD, WHOLLY_COVERS_PERIOD)).isTrue();
+    }
+
 
     @Test
     void testForOverlappingPeriodsWithSingleDatePeriodWithStartOverlap() {
@@ -68,11 +75,6 @@ class DatePeriodUtilTest {
     @Test
     void testForNonOverlappingPeriodAfter() {
         assertThat(DatePeriodUtil.areOverlapping(BASE_PERIOD, PERIOD_AFTER)).isFalse();
-    }
-
-    @Test
-    void testForOverlappingPeriodsWithWholePeriodOverlap() {
-        assertThat(DatePeriodUtil.areOverlapping(BASE_PERIOD, WHOLLY_COVERS_PERIOD)).isTrue();
     }
 
 }
